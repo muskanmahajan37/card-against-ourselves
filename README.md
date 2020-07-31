@@ -15,3 +15,7 @@
 ```sh
 $git clone https://github.com/HulewiczKamil/card-against-ourselves.git 
 ```
+   # PostgreSQL
+   - [PostgreSQL Toutorial](https://lobotuerto.com/blog/how-to-install-postgresql-in-manjaro-linux/)
+   - [PSYCOPG2](https://pypi.org/project/psycopg2/)
+   - [Postgres Admin](https://manjaro.site/how-to-install-postgresql-server-on-manjaro-18-0/)
