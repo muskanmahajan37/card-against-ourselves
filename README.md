@@ -13,5 +13,5 @@
    # Installation
    In order to start working with the project type
 ```sh
-    $git clonehttps://github.com/HulewiczKamil/card-against-ourselves.git 
+$git clone https://github.com/HulewiczKamil/card-against-ourselves.git 
 ```
