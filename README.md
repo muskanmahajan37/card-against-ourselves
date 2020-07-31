@@ -11,6 +11,7 @@
    - Update TO-DO list
   
    # Installation
+   In order to start working with the project type
 ```sh
-Add the commands
+    $git clonehttps://github.com/HulewiczKamil/card-against-ourselves.git 
 ```
