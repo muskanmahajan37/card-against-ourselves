@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5x%i_%2*v!!_^smm1g=b0g+w5910r6sgkb)$xa=dtke8!xq=z='
+SECRET_KEY = os.environ.get('SECRET_KEY_CARDS')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -71,15 +73,18 @@ WSGI_APPLICATION = 'cards.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.0/ref/export aaaa='a'settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_USER_CARDS'),
+        'PORT': os.environ.get('DB_PORT_CARDS'),
+        'PASSWORD': os.environ.get('DB_PASSWORD_CARDS'),
+        'USER': os.environ.get('DB_USER_CARDS'),
+        'HOST': os.environ.get('DB_HOSTNAME_CARDS'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -103,9 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
