@@ -4,12 +4,16 @@
    
    # Todos
    
-   - Split chores
-   - Make the login user interface
-   - Add the ability for user to log in and register an account
-   - Think of some functionalities
-   - Update TO-DO list
-  
+   - Make the user login and register interface @Kamil
+   - User profile page (with all features)
+   - Make chat
+   - Game applications
+   - Password reset on request
+   - Cards database
+   - User Database
+   - Invited friends pool
+   - Paid "Premium" feature
+
    # Installation
    In order to start working with the project type
 ```sh
