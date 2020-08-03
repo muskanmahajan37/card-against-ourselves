@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'cards.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_USER_CARDS'),
+        'NAME': os.environ.get('DB_NAME_CARDS'),
         'PORT': os.environ.get('DB_PORT_CARDS'),
         'PASSWORD': os.environ.get('DB_PASSWORD_CARDS'),
         'USER': os.environ.get('DB_USER_CARDS'),
