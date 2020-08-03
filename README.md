@@ -19,6 +19,18 @@
 ```sh
 $git clone https://github.com/HulewiczKamil/card-against-ourselves.git 
 ```
+To use virtual environment type
+```sh
+python -m venv venv
+```
+To install needed packages type
+```sh
+pip install -r requirements.txt
+```
+To open postgres type
+```sh
+sudo su postgres -c psql
+```
    # PostgreSQL
    - [PostgreSQL Toutorial](https://lobotuerto.com/blog/how-to-install-postgresql-in-manjaro-linux/)
    - [PSYCOPG2](https://pypi.org/project/psycopg2/)
