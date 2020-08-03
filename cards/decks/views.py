@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def creator(request):
     return render(request, 'decks/creator.html')
+
+def decks(request):
+    return render(request, 'decks/decks.html')
