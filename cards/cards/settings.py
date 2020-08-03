@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'decks',
     'accounts',
 ]
 
@@ -56,7 +56,9 @@ ROOT_URLCONF = 'cards.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            './templates/',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +80,7 @@ WSGI_APPLICATION = 'cards.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_USER_CARDS'),
+        'NAME': os.environ.get('DB_NAME_CARDS'),
         'PORT': os.environ.get('DB_PORT_CARDS'),
         'PASSWORD': os.environ.get('DB_PASSWORD_CARDS'),
         'USER': os.environ.get('DB_USER_CARDS'),
