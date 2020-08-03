@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'decks',
     'accounts',
 ]
 
@@ -57,8 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            './templates/',
-            './templates/partials/'
+            './cards/templates/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
