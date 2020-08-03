@@ -56,7 +56,10 @@ ROOT_URLCONF = 'cards.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            './templates/',
+            './templates/partials/'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
