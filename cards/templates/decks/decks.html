@@ -3,7 +3,15 @@
 {% block content %}
 
 {% if decks %}
-
+    <div class="container">
+        <div class="row valign-wrapper">
+            {% for deck in decks %}
+                <h2 class="col s6">{{ deck.name }}</h2>
+                <h5 class="col s3">{{ deck.author }}</h5>
+                <h5 class="col s3">B:{{ deck.white_cards.count }} C:{{ deck.black_cards.count }}</h5>
+            {% endfor %}
+        </div>
+    </div>
 {% else %}
 <h2>No decks found  <i class="material-icons">mood_bad</i></h2>
 {% endif %}
