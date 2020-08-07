@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Create New Deck
+{% endblock %}
+
 {% block content %}
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
-<h2>Witaj kruwa w kreatorze</h2>
+    <div class="row">
+        <h2>Create your own deck:</h2>
+        <form action="{% url 'creator' %}" method="post" class="col s12">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ field }}
+                        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                    </div>
+                </div>
+            {% endfor %}
+            <input type="submit" value="Submit" class="btn waves-effect waves-light">
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let fields =  document.querySelectorAll('input[type=text]');
+            M.CharacterCounter.init(fields);
+        });
+    </script>
 {% endblock %}
