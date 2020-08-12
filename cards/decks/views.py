@@ -33,4 +33,10 @@ def decks(request):
 
 def deck(request, id):
     
-    return render(request, 'decks/deck.html')
+    deck = Deck.objects.get(id=id)
+    white = WhiteCard.objects.filter(deck__id=id)
+    black = BlackCard.objects.filter(deck__id=id)
+
+    return render(request, 'decks/deck.html', {'deck': deck,
+                'white': white,
+                'black': black})

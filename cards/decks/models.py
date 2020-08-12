@@ -3,6 +3,8 @@ from django.db import models
 # Create your models here.
 class Deck(models.Model):
     name = models.CharField(max_length=120)
+    description = models.TextField()
+    tags = models.CharField(max_length=160)
     author = models.CharField(max_length=120, default='dodo')
 
     def __str__(self):
