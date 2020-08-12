@@ -13,10 +13,16 @@ Create New Deck
                 <div class="row">
                     <div class="input-field col s12">
                         {{ field }}
-                        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
                     </div>
                 </div>
             {% endfor %}
+            <div class="row" style="padding: 0px 10.5px;">
+                <h5>Tags:</h5>
+                <div class="chips">  
+                </div>
+                <input type="hidden" name="tags" value="">
+            </div>
             <input type="submit" value="Submit" class="btn waves-effect waves-light">
         </form>
     </div>
@@ -24,6 +30,19 @@ Create New Deck
         document.addEventListener('DOMContentLoaded', function(){
             let fields =  document.querySelectorAll('input[type=text]');
             M.CharacterCounter.init(fields);
+            let chips = document.querySelector('.chips');
+            M.Chips.init(chips, {placeholder: "Enter a tag", secondaryPlaceholder: "Add a tag", limit: 5, onChipAdd: addTag, onChipDelete: removeTag});
         });
+
+        function addTag(){
+            let tags = document.querySelector('input[type=hidden]');
+            let lastTag = document.querySelectorAll('.chip');
+            console.log(lastTag[lastTag.length - 1].innerHTML);
+            
+        }
+
+        function removeTag(){
+
+        }
     </script>
 {% endblock %}
