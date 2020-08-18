@@ -1,9 +1,63 @@
 {% extends 'base.html' %}
 
 {% block title %}
-
+{{ deck.name }} by {{ deck.author }}
 {% endblock %}
 
 {% block content %}
+<div class="row">
+    <div class="card col 12 s12 m12 l12 xl12">
+        <div class="card-content">
+            <span class="card-title" style="font-weight: bold; font-size: 2.5em;">{{ deck.name }}</span>
+            <div style="margin-bottom: 10px;">{{ deck.description }}</div>
+            {% for tag in tags %}
+                <div class="chip red accent-2 white-text">{{ tag }}</div>
+            {% empty %}
 
+            {% endfor %}  
+            <ul class="collection with-header">
+                <li class="collection-header red lighten-4"><h4><span class="tooltipped" data-position='right' data-tooltip='{{ white.count }}'>White cards:</span></h4></li>
+                <li class="collection-item">Add new <a href="#modalWhite" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a></li>
+                {% for white_card in white %}
+                    <li class="collection-item">{{ white_card.text }}</li>
+                {% endfor %}
+            </ul>
+            <ul class="collection with-header">
+                <li class="collection-header red lighten-4"><h4><span  class="tooltipped" data-position='right' data-tooltip='{{ black.count }}'>Black cards:</span></h4></li>
+                <li class="collection-item">Add new <a href="#modalBlack" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a></li>
+                {% for black_card in black %}
+                    <li class="collection-item">{{ black_card.text }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="modalWhite" class="modal">
+    <div class="modal-content">
+        <h4>Add new white card</h4>
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header"><h5>Add one</h5></div>
+                <div class="collapsible-body">Form storm</div>
+            </li>
+            <li>
+                <div class="collapsible-header"><h5>Add multiple</h5></div>
+                <div class="collapsible-body">Form storm</div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let tooltips = document.querySelectorAll('.tooltipped');
+        let modals = document.querySelectorAll('.modal');
+        let collapsibles = document.querySelectorAll('.collapsible');
+        var instances = M.Tooltip.init(tooltips);
+        var instances = M.Modal.init(modals);
+        var instances = M.Collapsible.init(collapsibles);
+    });
+</script>
 {% endblock %}
