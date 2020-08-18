@@ -15,16 +15,20 @@
             {% empty %}
 
             {% endfor %}  
-            <ul class="collection with-header">
-                <li class="collection-header red lighten-4"><h4><span class="tooltipped" data-position='right' data-tooltip='{{ white.count }}'>White cards:</span></h4></li>
-                <li class="collection-item">Add new <a href="#modalWhite" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a></li>
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        <h4><span class="tooltipped" data-position='right' data-tooltip='{{ white.count }}'>White cards</span></h4>
+                        <a href="#modalWhite" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a>
+                    </div>
                 {% for white_card in white %}
                     <li class="collection-item">{{ white_card.text }}</li>
                 {% endfor %}
+                </li>
             </ul>
             <ul class="collection with-header">
                 <li class="collection-header red lighten-4"><h4><span  class="tooltipped" data-position='right' data-tooltip='{{ black.count }}'>Black cards:</span></h4></li>
-                <li class="collection-item">Add new <a href="#modalBlack" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a></li>
+                <li class="collection-item">Add <a href="#modalBlack" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a></li>
                 {% for black_card in black %}
                     <li class="collection-item">{{ black_card.text }}</li>
                 {% endfor %}
@@ -35,18 +39,47 @@
 <div id="modalWhite" class="modal">
     <div class="modal-content">
         <h4>Add new white card</h4>
-        <ul class="collapsible">
-            <li>
-                <div class="collapsible-header"><h5>Add one</h5></div>
-                <div class="collapsible-body">Form storm</div>
-            </li>
-            <li>
-                <div class="collapsible-header"><h5>Add multiple</h5></div>
-                <div class="collapsible-body">Form storm</div>
-            </li>
-        </ul>
+        To add multiple cards use <span class="chip">;</span> as delimiter.
+        <form id='whiteForm' action="{% url 'add' %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ field }}
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    </div>
+                </div>
+                <input type="hidden" name="type" value="white">
+                <input type="hidden" name="id" value="{{ deck.id }}">
+            {% endfor %}
+        </form>
     </div>
     <div class="modal-footer">
+        <input type="submit" class="btn waves-effect" value="Add" form="whiteForm">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+    </div>
+</div>
+<div id="modalBlack" class="modal">
+    <div class="modal-content">
+        <h4>Add new black card</h4>
+        To add multiple cards use <span class="chip">;</span> as delimiter.<br>
+        Single <span class="chip">_</span> is one blank space for card.
+        <form id='blackForm' action="{% url 'add' %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ field }}
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    </div>
+                </div>
+                <input type="hidden" name="type" value="black">
+                <input type="hidden" name="id" value="{{ deck.id }}">
+            {% endfor %}
+        </form>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn waves-effect" value="Add" form="blackForm">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
     </div>
 </div>
@@ -54,10 +87,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         let tooltips = document.querySelectorAll('.tooltipped');
         let modals = document.querySelectorAll('.modal');
-        let collapsibles = document.querySelectorAll('.collapsible');
-        var instances = M.Tooltip.init(tooltips);
-        var instances = M.Modal.init(modals);
-        var instances = M.Collapsible.init(collapsibles);
+        let textareas = document.querySelectorAll('.materialize-textarea');
+        M.Tooltip.init(tooltips);
+        M.Modal.init(modals);
+        M.TextareaAutoResize.init(textareas);
     });
 </script>
 {% endblock %}
