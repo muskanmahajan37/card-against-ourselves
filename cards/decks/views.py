@@ -13,8 +13,12 @@ def creator(request):
         form = DeckForm(request.POST)
 
         if form.is_valid():
-            
-            return redirect('decks')
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            tags = request.POST['tags']
+            d = Deck(name=name, description=description, tags=tags)
+            d.save()
+            return redirect('deck/'+str(d.id))
 
     else:
         form = DeckForm()
@@ -36,7 +40,10 @@ def deck(request, id):
     deck = Deck.objects.get(id=id)
     white = WhiteCard.objects.filter(deck__id=id)
     black = BlackCard.objects.filter(deck__id=id)
+    tags = deck.tags.split(',')
+
 
     return render(request, 'decks/deck.html', {'deck': deck,
                 'white': white,
-                'black': black})
+                'black': black,
+                'tags': tags})

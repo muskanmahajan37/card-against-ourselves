@@ -21,7 +21,7 @@ Create New Deck
                 <h5>Tags:</h5>
                 <div class="chips">  
                 </div>
-                <input type="hidden" name="tags" value="">
+                <input type="hidden" id='tags' name="tags" value="">
             </div>
             <input type="submit" value="Submit" class="btn waves-effect waves-light">
         </form>
@@ -35,14 +35,29 @@ Create New Deck
         });
 
         function addTag(){
-            let tags = document.querySelector('input[type=hidden]');
+            let tags = document.querySelector('input[type=hidden]#tags');
             let lastTag = document.querySelectorAll('.chip');
-            console.log(lastTag[lastTag.length - 1].innerHTML);
+            console.log(lastTag[lastTag.length - 1].innerHTML.split('<i')[0]);
+            if(!tags.value){
+                tags.value += lastTag[lastTag.length - 1].innerHTML.split('<i')[0];
+            }else{
+                tags.value += ','+lastTag[lastTag.length - 1].innerHTML.split('<i')[0];
+            }
             
         }
 
         function removeTag(){
-
+            let tags = document.querySelector('input[type=hidden]#tags');
+            tags.value = '';
+            let lastTag = this.chipsData.forEach(
+                function(value){
+                    if(!tags.value){
+                        tags.value += value.tag;
+                    }else{
+                        tags.value += ','+value.tag;
+                    }
+                }
+            );
         }
     </script>
 {% endblock %}
