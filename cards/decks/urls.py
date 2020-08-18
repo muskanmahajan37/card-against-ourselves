@@ -6,5 +6,6 @@ urlpatterns = [
     path('creator', views.creator, name='creator'),
     path('decks', views.decks, name='decks'),
     path('deck/<int:id>', views.deck, name='deck'),
-    path('add_card', views.add_card, name='add')
+    path('add_card', views.add_card, name='add'),
+    path('remove_card', views.remove_card, name='remove')
 ]

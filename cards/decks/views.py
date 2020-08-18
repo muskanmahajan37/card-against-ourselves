@@ -77,3 +77,25 @@ def add_card(request):
                 BlackCard.objects.bulk_create(cards)
 
     return redirect('deck/'+str(id))
+
+def remove_card(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        
+        if request.POST['type'] == 'white':
+            for key in request.POST.keys():
+                if 'card-' in key:
+                    c = WhiteCard.objects.get(id=request.POST[key])
+                    if int(c.deck.id) == int(id):
+                        c.delete()
+                    
+        elif request.POST['type'] == 'black':
+            for key in request.POST.keys():
+                if 'card-' in key:
+                    c = BlackCard.objects.get(id=request.POST[key])
+                    if int(c.deck.id) == int(id):
+                        c.delete()
+        
+        return redirect('deck/'+str(id))
+    else:
+        return redirect('decks')
