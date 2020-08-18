@@ -17,13 +17,15 @@
             {% endfor %}  
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header">
-                        <h4><span class="tooltipped" data-position='right' data-tooltip='{{ white.count }}'>White cards</span></h4>
-                        <a href="#modalWhite" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a>
+                    <div class="collapsible-header teal">
+                        <i class="material-icons">add</i><h4><span class="tooltipped" data-position='right' data-tooltip='{{ white.count }}'>White cards</span></h4>
                     </div>
-                {% for white_card in white %}
-                    <li class="collection-item">{{ white_card.text }}</li>
-                {% endfor %}
+                    <div class="collapsible-body">
+                        <a href="#modalWhite" class="btn-floating waves-effect modal-trigger"><i class="material-icons">add</i></a>
+                        {% for white_card in white %}
+                            <div class="">{{ white_card.text }}</div>
+                        {% endfor %}
+                    </div>
                 </li>
             </ul>
             <ul class="collection with-header">
@@ -88,9 +90,11 @@
         let tooltips = document.querySelectorAll('.tooltipped');
         let modals = document.querySelectorAll('.modal');
         let textareas = document.querySelectorAll('.materialize-textarea');
+        let collapsibles = document.querySelectorAll('.collapsible');
         M.Tooltip.init(tooltips);
         M.Modal.init(modals);
         M.TextareaAutoResize.init(textareas);
+        M.Collapsible.init(collapsibles);
     });
 </script>
 {% endblock %}
