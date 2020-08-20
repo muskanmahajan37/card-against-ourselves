@@ -31,6 +31,15 @@ To open postgres type
 ```sh
 sudo su postgres -c psql
 ```
+To fill database
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+To load static files
+```sh
+python manage.py collectstatic
+```
    # PostgreSQL
    - [PostgreSQL Toutorial](https://lobotuerto.com/blog/how-to-install-postgresql-in-manjaro-linux/)
    - [PSYCOPG2](https://pypi.org/project/psycopg2/)
