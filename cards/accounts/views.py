@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+from .forms import CreateUserForm
+
 def register(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
 
 
     if request.method == 'POST':
@@ -13,4 +15,3 @@ def register(request):
 
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
-
