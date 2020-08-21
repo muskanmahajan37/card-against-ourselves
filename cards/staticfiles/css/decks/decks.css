@@ -1,0 +1,11 @@
+input.select-dropdown, input[type=search]{
+    border-bottom: none !important;
+    text-indent: 5px;
+    color: whitesmoke;
+}
+
+
+
+ul.select-dropdown li span{
+    color: #000 !important;
+}

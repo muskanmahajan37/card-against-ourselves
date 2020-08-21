@@ -1,11 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Browse Decks
 {% endblock %}
 
-{% block content %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/decks/decks.css' %}">
+{% endblock %}
 
+{% block content %}
+    <div class="row">
+        <form action="#" method="post"  class="col s12 m12 l12 xl12 red darken-1">
+            {% csrf_token %}
+            <div class="row" style="margin-bottom: 0;">
+                <div class="input-field col s12 m12 l8 xl8">
+                    <div class="valign-wrapper">
+                        <input class="red darken-2" type="search" name="search" placeholder="Search..." style="margin-right: 10px;">
+                        <button class="btn waves-effect waves-dark red darken-4" type="submit" style="margin-bottom: 8px;">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-field col s12 m12 l4 xl4">
+                    <select name="" id="">
+                        <option value="0" disabled selected>Sorting</option>
+                        <option value="1" data-icon="{% static 'images/arrow_up.svg' %}">By date</option>
+                        <option value="2" data-icon="{% static 'images/arrow_down.svg' %}">By date</option>
+                        <option value="3" data-icon="{% static 'images/arrow_up.svg' %}">By name</option>
+                        <option value="4" data-icon="{% static 'images/arrow_down.svg' %}">By name</option>
+                        <option value="5" data-icon="{% static 'images/arrow_down.svg' %}">By author name</option>
+                        <option value="6" data-icon="{% static 'images/arrow_down.svg' %}">By author name</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
 {% if decks %}
     <div class="row">
         {% for deck in decks %}
@@ -27,5 +57,16 @@ Browse Decks
 {% else %}
 <h2>No decks found  <i class="material-icons">mood_bad</i></h2>
 {% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let selects = document.querySelectorAll('select');
+        let dropdownTrigger = document.querySelector('#dropdown-trigger');
+        let dropdownContainer = document.querySelector('#dropdown-container');
+        M.FormSelect.init(selects, {
+            classes: "red darken-2"
+        });
+    });
+</script>
 
 {% endblock %}

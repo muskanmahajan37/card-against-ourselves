@@ -6,6 +6,9 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% block style %}
+    
+    {% endblock %}
 </head>
 <body style="display:flex; min-height:100vh; width: auto; flex-direction:column;" class="xd">
     {% include 'partials/_nav.html' %}
