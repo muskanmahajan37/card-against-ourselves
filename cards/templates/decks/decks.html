@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load decks_extras %}
 
 {% block title %}
 Browse Decks
@@ -11,26 +12,26 @@ Browse Decks
 
 {% block content %}
     <div class="row">
-        <form action="#" method="post"  class="col s12 m12 l12 xl12 red darken-1">
+        <form action="#" method="get"  class="col s12 m12 l12 xl12 red darken-1">
             {% csrf_token %}
             <div class="row" style="margin-bottom: 0;">
                 <div class="input-field col s12 m12 l8 xl8">
                     <div class="valign-wrapper">
-                        <input class="red darken-2" type="search" name="search" placeholder="Search..." style="margin-right: 10px;">
+                        <input value="{% if request.GET.search %}{{ request.GET.search }}{% endif %}" class="red darken-2" type="search" name="search" placeholder="Search..." style="margin-right: 10px;">
                         <button class="btn waves-effect waves-dark red darken-4" type="submit" style="margin-bottom: 8px;">
                             <i class="material-icons">search</i>
                         </button>
                     </div>
                 </div>
                 <div class="input-field col s12 m12 l4 xl4">
-                    <select name="" id="">
-                        <option value="0" disabled selected>Sorting</option>
-                        <option value="1" data-icon="{% static 'images/arrow_up.svg' %}">By date</option>
-                        <option value="2" data-icon="{% static 'images/arrow_down.svg' %}">By date</option>
-                        <option value="3" data-icon="{% static 'images/arrow_up.svg' %}">By name</option>
-                        <option value="4" data-icon="{% static 'images/arrow_down.svg' %}">By name</option>
-                        <option value="5" data-icon="{% static 'images/arrow_down.svg' %}">By author name</option>
-                        <option value="6" data-icon="{% static 'images/arrow_down.svg' %}">By author name</option>
+                    <select name="sort" id="">
+                        <option value="0" {% if not request.GET.sort %}selected{% endif %}>Sorting</option>
+                        <option value="1" {% if request.GET.sort and request.GET.sort == '1' %}selected{% endif %} data-icon="{% static 'images/arrow_up.svg' %}">By date</option>
+                        <option value="2" {% if request.GET.sort and request.GET.sort == '2' %}selected{% endif %} data-icon="{% static 'images/arrow_down.svg' %}">By date</option>
+                        <option value="3" {% if request.GET.sort and request.GET.sort == '3' %}selected{% endif %} data-icon="{% static 'images/arrow_up.svg' %}">By name</option>
+                        <option value="4" {% if request.GET.sort and request.GET.sort == '4' %}selected{% endif %} data-icon="{% static 'images/arrow_down.svg' %}">By name</option>
+                        <option value="5" {% if request.GET.sort and request.GET.sort == '5' %}selected{% endif %} data-icon="{% static 'images/arrow_down.svg' %}">By author name</option>
+                        <option value="6" {% if request.GET.sort and request.GET.sort == '6' %}selected{% endif %} data-icon="{% static 'images/arrow_down.svg' %}">By author name</option>
                     </select>
                 </div>
             </div>
@@ -53,6 +54,45 @@ Browse Decks
             </div>
         </div>
         {% endfor %}
+    </div>
+    <div class="row">
+        <ul class="pagination">
+            <li {% if decks.has_previous %} {% else %}class="disabled"{% endif %}>
+                <a style="padding: 0;" {% if decks.has_previous %}href="{{ request.path }}?{% url_replace page=1 %}"{% else %}href="#!"{% endif %}>
+                    <i class="material-icons">first_page</i>
+                </a>
+            </li>
+            <li {% if decks.has_previous %} {% else %}class="disabled"{% endif %}>
+                <a style="padding: 0;" {% if decks.has_previous %}href="{{ request.path }}?{% url_replace page=decks.previous_page_number %}"{% else %}href="#!"{% endif %}>
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
+            {% for i in decks.paginator.page_range %}
+            {% if i == decks.number %}
+            <li class="active">
+                <a href="{{ request.path }}?{% url_replace page=i %}">{{ i }}</a>
+            </li>
+            {% elif decks.number <= decks.paginator.num_pages|add:'-4' and i > decks.number|add:'-1' and i < decks.number|add:'5' %}
+            <li class="waves-effect">
+                <a href="{{ request.path }}?{% url_replace page=i %}">{{ i }}</a>
+            </li>
+            {% elif decks.number > decks.paginator.num_pages|add:'-4' and i > decks.paginator.num_pages|add:'-5' and i <= decks.paginator.num_pages %}
+            <li class="waves-effect">
+                <a href="{{ request.path }}?{% url_replace page=i %}">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <li {% if decks.has_next %} {% else %}class="disabled"{% endif %}>
+                <a style="padding: 0;" {% if decks.has_next %}href="{{ request.path }}?{% url_replace page=decks.next_page_number %}"{% else %}href="#!"{% endif %}>
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
+            <li {% if decks.has_next %} {% else %}class="disabled"{% endif %}>
+                <a style="padding: 0;" {% if decks.has_next %}href="{{ request.path }}?{% url_replace page=decks.paginator.num_pages %}"{% else %}href="#!"{% endif %}>
+                    <i class="material-icons">last_page</i>
+                </a>
+            </li>
+        </ul>
     </div>
 {% else %}
 <h2>No decks found  <i class="material-icons">mood_bad</i></h2>

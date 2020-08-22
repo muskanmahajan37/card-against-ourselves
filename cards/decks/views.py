@@ -1,5 +1,7 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import Http404
+from django.db.models import Q
 
 # Create your views here.
 
@@ -28,10 +30,48 @@ def creator(request):
 
 def decks(request):
 
-    decks = Deck.objects.all()
+    if request.method == 'GET':
+        if 'search' in request.GET:
+            search = request.GET['search']
+        else:
+            search = ''
+
+        if 'sort' in request.GET:
+            sort = request.GET['sort']
+        else:
+            sort = 0
+
+        if sort == '1':
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('date')
+        elif sort == '2':
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('-date', '-id')
+        elif sort == '3':
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('name')
+        elif sort == '4':
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('-name')
+        elif sort == '5':
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('author')
+        elif sort == '6':
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('-author')
+        else:
+            decks = Deck.objects.filter(
+                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search))
+    else:
+        decks = Deck.objects.all()
+
+    paginator = Paginator(decks, 8)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        'decks': decks
+        'decks': page_obj
     }
 
     return render(request, 'decks/decks.html', context)
