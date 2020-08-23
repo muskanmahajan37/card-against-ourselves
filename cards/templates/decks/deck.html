@@ -24,7 +24,7 @@
                         </h4>
                     </div>
                     <div class="collapsible-body">
-                        <form action="{% url 'remove' %}" method="POST">
+                        <form action="{% url 'remove_card' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="type" value="white">
                             <input type="hidden" name="id" value="{{ deck.id }}">
@@ -60,7 +60,7 @@
                         </h4>
                     </div>
                     <div class="collapsible-body">
-                        <form action="{% url 'remove' %}" method="POST">
+                        <form action="{% url 'remove_card' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="type" value="black">
                             <input type="hidden" name="id" value="{{ deck.id }}">
@@ -90,13 +90,32 @@
                 </li>
             </ul>
         </div>
+        <div class="card-action">
+            <a href="#modalRemove" class="btn red modal-trigger waves-effect">Remove Deck</a>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalRemove">
+    <div class="modal-content">
+        <h4>Are your sure?</h4>
+        <h5>You are trying to delete <b>{{ deck.name }}</b>.</h5>
+        <form action="{% url 'remove_deck' %}" id="removeDeckForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ deck.id }}">
+        </form>
+    </div>
+    <div class="modal-footer">
+            <button type="submit" form="removeDeckForm" class="btn red waves-effect waves-red">
+                Yes
+            </button>
+            <a href="#!" class="modal-close waves-effect waves-green btn green">No</a>
     </div>
 </div>
 <div id="modalWhite" class="modal">
     <div class="modal-content">
         <h4>Add new white card</h4>
         To add multiple cards use <span class="chip">;</span> as delimiter.
-        <form id='whiteForm' action="{% url 'add' %}" method="POST">
+        <form id='whiteForm' action="{% url 'add_card' %}" method="POST">
             {% csrf_token %}
             {% for field in form %}
                 <div class="row">
@@ -120,7 +139,7 @@
         <h4>Add new black card</h4>
         To add multiple cards use <span class="chip">;</span> as delimiter.<br>
         Single <span class="chip">_</span> is one blank space for card.
-        <form id='blackForm' action="{% url 'add' %}" method="POST">
+        <form id='blackForm' action="{% url 'add_card' %}" method="POST">
             {% csrf_token %}
             {% for field in form %}
                 <div class="row">

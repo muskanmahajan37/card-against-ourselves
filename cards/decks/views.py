@@ -43,25 +43,53 @@ def decks(request):
 
         if sort == '1':
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('date')
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) | 
+                    Q(author__icontains=search)
+                ).order_by('date')
         elif sort == '2':
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('-date', '-id')
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) |
+                    Q(author__icontains=search)
+                ).order_by('-date', '-id')
         elif sort == '3':
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('name')
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) |
+                    Q(author__icontains=search)
+                ).order_by('name')
         elif sort == '4':
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('-name')
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) |
+                    Q(author__icontains=search)
+                ).order_by('-name')
         elif sort == '5':
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('author')
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) |
+                    Q(author__icontains=search)
+                ).order_by('author')
         elif sort == '6':
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search)).order_by('-author')
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) |
+                    Q(author__icontains=search)
+                ).order_by('-author')
         else:
             decks = Deck.objects.filter(
-                Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search))
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search) | 
+                    Q(tags__icontains=search) |
+                    Q(author__icontains=search)
+                )
     else:
         decks = Deck.objects.all()
 
@@ -93,6 +121,13 @@ def deck(request, id):
                 'black': black,
                 'tags': tags,
                 'form': form})
+
+def remove_deck(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        deck = Deck.objects.get(id=id)
+        deck.delete()
+        return redirect('decks')
 
 def add_card(request):
     if request.method == 'POST':
