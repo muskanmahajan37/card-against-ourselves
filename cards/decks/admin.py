@@ -4,7 +4,10 @@ from .models import Deck, WhiteCard, BlackCard
 
 # Register your models here.
 
-admin.site.register(Deck)
+class DeckAdmin(admin.ModelAdmin):
+    readonly_fields = (id,)
+
+admin.site.register(Deck, DeckAdmin)
 
 admin.site.register(WhiteCard)
 
