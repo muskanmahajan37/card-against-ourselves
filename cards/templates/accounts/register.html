@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 {% csrf_token %}
 {% block content %}
+<form action="", method="POST">
+  <h2>Register</h2>
 {%for field in form%}
-<div class="row">
-    <div class="input-field col s12">
-      <input id="password" type="password" class="validate">
-      <label for="{{field.name}}">{{field.label}}</label>
-    </div>
-  </div>
+
+
+  {% csrf_token %}
+  {{field.label}}
+  {{field}}
+  
+
+
+
 {%endfor%}
-<button class="btn waves-effect pink darken-3
-" type="submit" name="action">Create user
-  <i class="material-icons left">accessible</i>
-</button>
+  <button class="btn waves-effect pink darken-1" type="submit" name="action">Submit
+   <i class="material-icons right">send</i>
+  </button>
+</form>
+
 {% endblock %}
