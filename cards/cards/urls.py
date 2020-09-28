@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('decks.urls')),
     path('', include('accounts.urls')),
-    path('', include('games.urls'))
+    path('', include('games.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
