@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
-{% csrf_token %}
 {% block content %}
 <form action="", method="POST">
+
+<!--
   <h2>Register</h2>
 {%for field in form%}
 
@@ -14,9 +15,58 @@
 
 
 {%endfor%}
+
   <button class="btn waves-effect pink darken-1" type="submit" name="action">Submit
    <i class="material-icons right">send</i>
   </button>
-</form>
+  <div class="sign-in-container">
+    <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
 
+  </div>
+</form>
+-->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    
+    <div class="container">
+      <div class="row">
+       <main>
+        <center>
+         <div class="container">
+            <div  class="z-depth-3 y-depth-3 x-depth-3 grey black-text lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px; margin-top: 100px; solid #EEE;">
+            <h5 style = 'color: black'>Create new account</h5>
+          <div class="section"><i class="mdi-alert-error red-text"></i></div>
+          
+          {%csrf_token%}
+              
+                <div class='row'>
+                  {% for field in form %}
+                  <div class='input-field col s12'>
+                    {{field.label}}
+                    {{field}}
+                  </div>
+                  {%endfor%}
+                </div>
+          
+                  <center><p style="color: black; text-align: center;">Already have an account? <a href="{% url 'login' %}">Sign in</a></p></center>
+
+                <br/>
+                <div class='center-allign'>
+                  <div class='row'>
+                    <button style="margin-left:65px;" type='submit' name='btn_login' class='col s8 btn btn-small white black-text  waves-effect z-depth-1 y-depth-1'>Register your account</button>
+                  </div>
+                </div>
+                {% for message in messages %}
+                  <p style="margin: auto;">{{message}}</p>
+                {% endfor %}  
+            </div>
+           </div>
+          </center>
+          </main>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    
+      </div>
+    </div>
 {% endblock %}
