@@ -4,7 +4,16 @@
             <a href="{% url 'index' %}" class="brand-logo center">Cards</a>
             <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="{% url 'login' %}">Sign in</a></li>
+                {% if request.user.is_authenticated %}
+                <li>{{user}}</li>
+                <li><a href="{% url 'logout' %}">logout</a></li>
+
+                {% else %}
+                    <li><a href="{% url 'login' %}">Sign in</a></li>
+                {% endif %}
+                
+                
+                
                 <li><a href="{% url 'creator' %}">Creator</a></li>
                 <li><a href="{% url 'decks' %}">Decks</a></li>
                 <li><a href="{% url 'index' %}">Back to home</a></li>

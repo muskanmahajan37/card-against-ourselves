@@ -43,3 +43,7 @@ def user_login_authentication(request):
 
     context_view = {}
     return render(request, 'accounts/login.html', context_view)
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
