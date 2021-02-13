@@ -1,0 +1,14 @@
+version: "3.9"
+
+services: 
+  db:
+    image: postgres
+    container_name: db
+    ports: 
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=CardsGame
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_ROOT_PASSWORD=admin
+      - ALLOW_IP_RANGE="0.0.0.0/0"
