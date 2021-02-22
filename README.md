@@ -12,7 +12,6 @@
    - Cards database
    - User Database
    - Invited friends pool
-   - Paid "Premium" feature
 
    # Installation
    In order to start working with the project type
